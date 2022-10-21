@@ -18,6 +18,16 @@ steps:
     version: 
 - task: DotNetCoreCLI@2
   inputs:
+    command: 'pack'
+    packagesToPack: '**/*.csproj'
+    versioningScheme: 'off'
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'push'
+    packagesToPush: '$(Build.ArtifactStagingDirectory)/*.nupkg'
+    nuGetFeedType: 'internal'
+- task: DotNetCoreCLI@2
+  inputs:
     command: 'build'
     projects: '**/* .csproj'
     arguments: '--configuration $(buildConfiguration)'
